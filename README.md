@@ -8,6 +8,7 @@ Python implementation for SIM image reconstruction with:
 GPU-accelerated version (CuPy)
 
 CPU version (NumPy)
+
 Processes raw TIFF stacks organized by angle/phase, performs Wiener deconvolution, and outputs high-resolution reconstructions.
 
 DATA REQUIREMENTS
