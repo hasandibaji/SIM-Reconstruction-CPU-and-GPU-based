@@ -98,5 +98,7 @@ Cropped Raw Image	SIM Reconstructed
 (Optional: Add screenshots if available)
 
 👨‍🔬 Author
+
 Dr. Hassan Dibaji
+
 Postdoctoral Researcher in Optical Imaging Systems
