@@ -67,9 +67,6 @@ Place TIFF files in folder
 Update path in script:
 folder_path = "/path/to/sim_data"
 
-Run:
-GPU: python sim_reconstruction_gpu.py
-CPU: python sim_reconstruction_cpu.py
 
 OUTPUT FILES
 
@@ -81,7 +78,6 @@ PERFORMANCE TUNING
 
 Adjustable parameters:
 alpha = 0.1 # Wiener filter noise control [0.01-0.5]
-k_exc_rel = 0.42 # Excitation frequency [0.3-0.5]
 crop_factor = 1 # 1=full size, 2=50% crop
 
 NOTES
