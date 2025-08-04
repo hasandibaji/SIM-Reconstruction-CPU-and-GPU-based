@@ -1,104 +1,115 @@
-🧠 Structured Illumination Microscopy (SIM) Reconstruction Pipeline
+STRUCTURED ILLUMINATION MICROSCOPY (SIM) RECONSTRUCTION PIPELINE
+===============================================================
 
-This repository provides Python implementations (both GPU-accelerated using CuPy and CPU-based using NumPy) for loading, preprocessing, and reconstructing high-resolution images using Structured Illumination Microscopy (SIM). It supports raw image stacks organized by angle and phase encoding, and performs Wiener deconvolution to extract and combine frequency orders.
+OVERVIEW
 
-📁 Folder Structure and File Naming Convention
+Python implementation for SIM image reconstruction with:
 
-Raw TIFF image files should be organized in a single folder and follow a naming pattern like:
+GPU-accelerated version (CuPy)
 
-Angle 45 - Phase_0.071.tiff
+CPU version (NumPy)
+Processes raw TIFF stacks organized by angle/phase, performs Wiener deconvolution, and outputs high-resolution reconstructions.
 
-Angle 45 - Phase_0.143.tiff
+DATA REQUIREMENTS
 
-Angle 45 - Phase_0.214.tiff
+File naming convention:
+Angle_[XX]Phase[YYY].tiff (e.g., Angle_45_Phase_0.071.tiff)
 
-Angle 90 - Phase_0.071.tiff
-
+Folder structure:
+/sim_data/
+Angle_45_Phase_0.071.tiff
+Angle_45_Phase_0.143.tiff
+Angle_45_Phase_0.214.tiff
+Angle_90_Phase_0.071.tiff
 ...
 
-Each SIM angle (e.g., 45°, 90°, 135°) must have three phase-shifted images, for a total of 9 files per reconstruction.
+9 files required per reconstruction (3 angles × 3 phases)
 
-🚀 Features
+Supported angles: 45°, 90°, 135° (modifiable in code)
 
-✅ Loads and crops raw TIFF stacks
+KEY FEATURES
 
-✅ Automatically extracts angle and phase info from filenames
+Input Processing:
 
-✅ Saves the first cropped raw image as reference
+Automatic angle/phase extraction from filenames
 
-✅ Implements SIM reconstruction with:
+TIFF stack loading and cropping
 
-    Wiener filtering
+Reconstruction:
 
-    Fourier domain shifting
+Wiener filtering
 
-    Frequency order extraction
+Fourier domain processing
 
-✅ Outputs final high-resolution image as TIFF
+Frequency order extraction
 
-✅ Supports both GPU (cupy) and CPU (numpy) versions
+Output:
 
-✅ Visualizes raw and reconstructed images
+High-resolution TIFF
 
-🛠️ Requirements
+Reference image
 
-GPU Version
+Visualization tools
 
-pip install cupy scikit-image matplotlib
+INSTALLATION
 
-CPU Version
+GPU Version (Recommended):
+pip install cupy scikit-image matplotlib tifffile
 
-pip install numpy scipy scikit-image matplotlib
+CPU Version:
+pip install numpy scipy scikit-image matplotlib tifffile
 
-🧪 Usage
+USAGE
 
-GPU Version
-Update the folder path in the script and run:
+Place TIFF files in folder
 
-python sim_reconstruction_gpu.py
+Update path in script:
+folder_path = "/path/to/sim_data"
 
-CPU Version
+Run:
+GPU: python sim_reconstruction_gpu.py
+CPU: python sim_reconstruction_cpu.py
 
-Update the folder path in the script and run:
+OUTPUT FILES
 
-python sim_reconstruction_cpu.py
+Raw_cropped_reference.tiff
 
-🖼️ Output
+SIM_output_halfsize.tiff
 
-Raw_cropped_reference.tiff: First cropped input image (used as reference)
+PERFORMANCE TUNING
 
-SIM_output_halfsize.tiff: Reconstructed high-resolution image
+Adjustable parameters:
+alpha = 0.1 # Wiener filter noise control [0.01-0.5]
+k_exc_rel = 0.42 # Excitation frequency [0.3-0.5]
+crop_factor = 1 # 1=full size, 2=50% crop
 
-On-screen visualization of both images
+NOTES
 
-📊 Performance Tips
+Only processes .tif/.tiff files with "Angle" in name
 
-GPU version runs significantly faster on supported NVIDIA hardware.
+Phase values must be decimal format (e.g., 0.071)
 
-Center-cropping is currently hard-coded to full size (n=1). You can reduce size to 50% with n=2 in the cropping block.
+Modify angle_list/phase_list for non-standard patterns
 
-You may adjust:
+PIPELINE STEPS
 
-alpha in Wiener filter for noise control
+Raw TIFF loading
 
-k_exc_rel to tune excitation spatial frequency
+Filename parsing
 
-📌 Notes
+Image cropping
 
-Only .tif or .tiff files with "angle" in the name are processed.
+Wiener deconvolution
 
-Phase extraction assumes a specific decimal format (e.g., Phase_0.071.tiff).
+Fourier processing
 
-You can customize angle/phase lists if using non-standard SIM patterns.
+Order extraction
 
-📷 Example Visualization
+Image reconstruction
 
-Cropped Raw Image	SIM Reconstructed
+Output generation
 
-(Optional: Add screenshots if available)
-
-👨‍🔬 Author
+AUTHOR
 
 Dr. Hassan Dibaji
-
-Postdoctoral Researcher in Optical Imaging Systems
+Postdoctoral Researcher - Optical Imaging Systems
